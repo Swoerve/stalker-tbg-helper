@@ -1,1 +1,0 @@
-# stalker-tbg-helper
