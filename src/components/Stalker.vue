@@ -9,6 +9,9 @@
             <v-card class="w-100">
                 <v-card-title class="pb-0 text-h4 text-yellow-accent-3 font-weight-bold">{{ stalker.name }}</v-card-title>
                 <v-card-subtitle class="text-subtitle1">{{ (stalker.player) }}</v-card-subtitle>
+                <v-card-actions>
+                    <v-btn color="error" @click="deleteStalker(stalker.name)">Kill</v-btn>
+                </v-card-actions>
             </v-card>
         </v-container>
     </v-container>
@@ -34,13 +37,25 @@ const isActive = toRef(props.isActive)
 let stalkerName = ref('')
 let playerName = ref('')
 function createStalker(){
-    console.log('creating stalker')
+    console.log('creating stalker...')
     if(playerName.value && stalkerName.value){
         campaign.value.newStalker(stalkerName.value, playerName.value)
     }
     else{
         alert("You need to input both player and stalker names")
     }
+}
+
+function deleteStalker(name){
+    console.log('deleting stalker...')
+    let toDeleteStalker = campaign.value.stalkers.findIndex((value, index, array) => {
+        return value.name === name
+    })
+    console.log(toDeleteStalker)
+    campaign.value.stalkers.splice(toDeleteStalker, 1)
+
+
+
 }
 
 </script>
