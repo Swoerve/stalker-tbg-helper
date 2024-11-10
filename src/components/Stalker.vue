@@ -46,7 +46,7 @@ function createStalker(){
     }
 }
 
-function deleteStalker(name){
+function deleteStalker(name: string){
     console.log('deleting stalker...')
     let toDeleteStalker = campaign.value.stalkers.findIndex((value, index, array) => {
         return value.name === name
