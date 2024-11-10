@@ -30,9 +30,9 @@ const props = defineProps({
     },
     isActive: Boolean
 })
-
-const campaign = toRef(props.campaign)
-const isActive = toRef(props.isActive)
+const {campaign, isActive} = toRefs(props)
+//const campaign = toRef(props.campaign)
+//const isActive = toRef(props.isActive)
 
 let stalkerName = ref('')
 let playerName = ref('')
