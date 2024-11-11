@@ -75,14 +75,17 @@ function deleteCampaign(){
   let toDeleteCampaign = campaigns.value.findIndex((value, index, array) => {
     return value.name === CampaignName.value
   })
-  campaigns.value.splice(toDeleteCampaign, 1)
-  if(campaigns.value.length > 0 && toDeleteCampaign === 0){
-    selectedCampaign.value = campaigns.value[0]
-  }else if(campaigns.value.length > 0){
-    selectedCampaign.value = campaigns.value[toDeleteCampaign - 1]
-  }else{
-    selectedCampaign.value = campaigns.value[0]
+  if(toDeleteCampaign >= 0){
+    campaigns.value.splice(toDeleteCampaign, 1)
+    if(campaigns.value.length > 0 && toDeleteCampaign === 0){
+      selectedCampaign.value = campaigns.value[0]
+    }else if(campaigns.value.length > 0){
+      selectedCampaign.value = campaigns.value[toDeleteCampaign - 1]
+    }else{
+      selectedCampaign.value = campaigns.value[0]
+    }
   }
+  
 }
 
 //const activeTab = ref(0)
