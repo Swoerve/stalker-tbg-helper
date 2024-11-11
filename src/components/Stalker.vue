@@ -1,12 +1,12 @@
 <template>
   <v-container v-show="isActive" class="ma-0 pa-0 w-100" fluid>
     <v-row no-gutters>
-      <v-col cols="9">
+      <v-col cols="8">
         <v-select :items="campaign.stalkers" item-title="name" item-value="id" return-object v-model="selectedStalker"
           label="stalker" center-affix hide-details>
         </v-select>
       </v-col>
-      <v-col cols="3" align-self="center">
+      <v-col cols="4" align-self="center">
         <v-btn block color="success" @click="overlay = true">
           New Stalker
           <v-overlay v-model="overlay" class="align-center justify-center">
