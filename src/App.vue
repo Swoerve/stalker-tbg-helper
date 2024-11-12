@@ -2,35 +2,22 @@
 import { ref, onMounted, computed, watch, reactive } from "vue"
 import type { Ref } from 'vue'
 import * as game from './campaign'
-//import { RefSymbol } from "@vue/reactivity"
 import Stalker from "./components/Stalker.vue"
 import Contact from "./components/Contact.vue"
 
-//let test = new game.Campaign([],[],[],0)
+// new campaign reference to be populated later on or inserted a new campaign
 let campaigns: Ref<game.Campaign[]> = ref([])
-// let campaign = new game.Campaign('first',0, [],[],[],0)
-// let campaign1 = new game.Campaign('second',1, [],[],[],1000)
-// campaigns.value.push(campaign)
-// campaigns.value.push(campaign1)
 
-
+// the selected campaign
 let selectedCampaign = ref()
+
 //new campaign stuff
-let newCampaignOverlay = ref(false)
-let newCampaignName = ref('')
+let newCampaignOverlay = ref(false) // the overlay for making a new campaign
+let newCampaignName = ref('') // the name for the new campaign
 
 // delete campaign stuff
-let deleteCampaignOverlay = ref(false)
-let CampaignName = ref('')
-
-
-const equipment = ref([])
-
-
-let equipmentName = ref('')
-let equipmentType = ref('')
-let equipmentPersonal = ref(false)
-//const testn = ref(stalkerName)
+let deleteCampaignOverlay = ref(false) // the overlay for deleting a campaign
+let CampaignName = ref('') // the name that the campaign to be deleted has
 
 watch(campaigns, (newVal) => {
   let save: { [k: string]: any } = {}
@@ -52,11 +39,6 @@ onMounted(() => {
     }
     console.log('mounting id ' + campaigns.value[0].id)
     selectedCampaign.value = campaigns.value[0]
-    //console.log(getCampaignIndexFromId(campaigns, selectedCampaign.value))
-    //campaign.value = reactive(game.Campaign.fromSerialized())
-    //console.log(JSON.parse(localStorage.getItem('campaign')))
-    //console.log(campaign.value)
-    //console.log(game.Campaign.fromSerialized(localStorage.getItem('campaign')))
   }
 })
 
@@ -86,7 +68,6 @@ function deleteCampaign() {
 
 }
 
-//const activeTab = ref(0)
 const tabs = reactive([true, false, false])
 function switchTab(n: number) {
   console.log('switching tabs')
@@ -99,14 +80,6 @@ function switchTab(n: number) {
   console.log(tabs)
 }
 
-// function getCampaignIndexFromId(campaigns: Ref<game.Campaign[]>, id:string){
-//   let index = campaigns.findIndex((element: game.Campaign) => {
-//     return element.id === id
-//   })
-//   return index
-// }
-
-//console.log(getCampaignIndexFromId(campaigns, selectedCampaign))
 console.log('selected:' + selectedCampaign.value)
 </script>
 
@@ -156,7 +129,7 @@ console.log('selected:' + selectedCampaign.value)
       <Contact :campaign="selectedCampaign" :isActive="tabs[1]" :key="selectedCampaign" />
     </v-main>
   </v-app>
-  <v-text-field v-if="campaigns.length === 0" contained="true" name="name" label="Name" placeholder="value"
+  <v-text-field v-if="campaigns.length === 0" contained="true" name="name" label="Campaign name" placeholder="Campaign"
     v-model="newCampaignName"></v-text-field>
   <v-btn v-if="campaigns.length === 0" color="success"
     @click="newCampaign(); selectedCampaign = campaigns[0]">Create</v-btn>
