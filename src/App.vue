@@ -19,6 +19,7 @@ let newCampaignName = ref('') // the name for the new campaign
 let deleteCampaignOverlay = ref(false) // the overlay for deleting a campaign
 let CampaignName = ref('') // the name that the campaign to be deleted has
 
+// watches for any changes made to campaign deeply, and then saves a stringify'ed version of campaign into local storage
 watch(campaigns, (newVal) => {
   let save: { [k: string]: any } = {}
   newVal.forEach(cmpgn => {
@@ -27,6 +28,7 @@ watch(campaigns, (newVal) => {
   localStorage.setItem('campaigns', JSON.stringify(save))
 }, { deep: true })
 
+// when the site has finished loading then check localstorage for already existing campaigns and load them
 onMounted(() => {
   console.log('mounted')
   if (localStorage.getItem('campaigns')) {
@@ -34,20 +36,21 @@ onMounted(() => {
     let load = JSON.parse(localStorage.getItem('campaigns') as string)
     campaigns.value = []
     for (let key in load) {
-      console.log(key, load[key])
+      // console.log(key, load[key])
       campaigns.value.push(game.Campaign.fromSerialized(load[key]))
     }
-    console.log('mounting id ' + campaigns.value[0].id)
+    // console.log('mounting id ' + campaigns.value[0].id)
     selectedCampaign.value = campaigns.value[0]
   }
 })
 
+// creates a new campaign
 function newCampaign() {
-  console.log(campaigns)
-  console.log(campaigns.value.length)
+  // console.log(campaigns)
+  // console.log(campaigns.value.length)
   let newId = game.generateId(campaigns.value)
   let newCampaignObject = new game.Campaign(newCampaignName.value, newId)
-  console.log(newCampaignObject)
+  // console.log(newCampaignObject)
   campaigns.value.push(newCampaignObject)
 }
 
@@ -70,17 +73,17 @@ function deleteCampaign() {
 
 const tabs = reactive([true, false, false])
 function switchTab(n: number) {
-  console.log('switching tabs')
+  // console.log('switching tabs')
   for (let i = 0; i < tabs.length; i++) {
     tabs[i] = false
     if (i === n) {
       tabs[i] = true
     }
   }
-  console.log(tabs)
+  // console.log(tabs)
 }
 
-console.log('selected:' + selectedCampaign.value)
+// console.log('selected:' + selectedCampaign.value)
 </script>
 
 <template>
