@@ -15,22 +15,10 @@
                 New Stalker
               </v-card-title>
               <v-form validate-on="submit" @submit.prevent="submit">
-                <v-text-field 
-                contained="true" 
-                name="name" 
-                label="Name" 
-                placeholder="name"
-                style="min-width: 10rem;"
-                v-model="stalkerName"
-                :rules="stalkerRule"></v-text-field>
-                <v-text-field 
-                contained="true" 
-                name="player" 
-                label="Player" 
-                placeholder="player"
-                style="min-width: 10rem;"
-                v-model="playerName"
-                :rules="nameRule"></v-text-field>
+                <v-text-field contained="true" name="name" label="Name" placeholder="name" style="min-width: 10rem;"
+                  v-model="stalkerName" :rules="stalkerRule"></v-text-field>
+                <v-text-field contained="true" name="player" label="Player" placeholder="player"
+                  style="min-width: 10rem;" v-model="playerName" :rules="nameRule"></v-text-field>
                 <v-card-actions>
                   <v-btn :loading="loading" color="success" type="submit">Create</v-btn>
                 </v-card-actions>
@@ -48,12 +36,12 @@
       <v-card-title>
         Equipment
       </v-card-title>
-      <Equipment :stalker="selectedStalker" ></Equipment>
+      <Equipment :stalker="selectedStalker"></Equipment>
       <v-divider></v-divider>
       <v-card-title>
         Achivements
       </v-card-title>
-      <Achievements :stalker="selectedStalker" ></Achievements>
+      <Achievements :stalker="selectedStalker"></Achievements>
       <v-card-actions>
         <v-btn color="error" @click="deleteStalker(selectedStalker.id)">Kill</v-btn>
       </v-card-actions>
@@ -80,8 +68,8 @@ import type { SubmitEventPromise } from 'vuetify'
 // })
 // const { campaign, isActive } = toRefs(props)
 
-const campaign = defineModel('campaign', {type: game.Campaign, required: true})
-const isActive = defineModel('isActive', {type: Boolean, required: true})
+const campaign = defineModel('campaign', { type: game.Campaign, required: true })
+const isActive = defineModel('isActive', { type: Boolean, required: true })
 
 //const campaign = toRef(props.campaign)
 //const isActive = toRef(props.isActive)
@@ -89,15 +77,15 @@ let selectedStalker: any = ref(campaign.value.stalkers[0])
 console.log(selectedStalker.value)
 
 let loading = ref(false)
-async function submit(event: SubmitEventPromise){
+async function submit(event: SubmitEventPromise) {
   loading.value = true
 
   const results = await event
 
-  
+
 
   console.log(JSON.stringify(results, null, 2))
-  if(results.valid){
+  if (results.valid) {
     createStalker()
     overlay.value = false
   }
@@ -135,12 +123,12 @@ function deleteStalker(id: string) {
   })
   console.log(toDeleteStalker)
   campaign.value.stalkers.splice(toDeleteStalker, 1)
-  if(campaign.value.stalkers.length > 0 && toDeleteStalker === 0){
+  if (campaign.value.stalkers.length > 0 && toDeleteStalker === 0) {
     selectedStalker.value = campaign.value.stalkers[0]
     console.log(selectedStalker)
-  }else if(campaign.value.stalkers.length > 0 ){
+  } else if (campaign.value.stalkers.length > 0) {
     selectedStalker.value = campaign.value.stalkers[toDeleteStalker - 1]
-  }else{
+  } else {
     selectedStalker.value = campaign.value.stalkers[0]
   }
 }

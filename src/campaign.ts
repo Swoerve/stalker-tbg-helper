@@ -54,7 +54,7 @@ export class Campaign {
   // converts the contents of the campaign to json
   private toObject() {
     let locations: Object[] = []
-    this.locations.forEach((locaton) => {
+    this.locations.forEach((location) => {
       console.log('getting locations')
       //locations to object
     })
@@ -111,7 +111,7 @@ export class Stalker {
   equipment: Equipment[] = []
   achievements: Achievement[] = []
 
-  public constructor(name: string, player: string,id: string, equipment?: Equipment[], achievements?: Achievement[]) {
+  public constructor(name: string, player: string, id: string, equipment?: Equipment[], achievements?: Achievement[]) {
     this.name = name
     this.player = player
     this.id = id
@@ -136,7 +136,7 @@ export class Stalker {
       console.log('getting equipment')
 
       equipment.push(thing.serialize())
-    }) 
+    })
 
     let achievements: Object[] = []
     this.achievements.forEach((achievement) => {
@@ -158,11 +158,11 @@ export class Stalker {
     return this.toObject()
   }
 
-  addEquipment(name: string, type: string, id:string, personal: boolean, personalStalker: string) {
+  addEquipment(name: string, type: string, id: string, personal: boolean, personalStalker: string) {
     this.equipment.push(new Equipment(name, type, id, personal, personalStalker))
   }
 
-  addAchievement(title: string, condition: string, id:string, reward: string, completed: boolean) {
+  addAchievement(title: string, condition: string, id: string, reward: string, completed: boolean) {
     this.achievements.push(new Achievement(title, condition, id, reward, completed))
   }
 }
@@ -188,10 +188,10 @@ export class Equipment {
     this.id = id
     this.personal = false
     this.personalStalker = ''
-    if(personal){
+    if (personal) {
       this.personal = personal
     }
-    if(personalStalker){
+    if (personalStalker) {
       this.personalStalker = personalStalker
     }
   }
@@ -220,7 +220,7 @@ class Achievement {
   readonly completed: boolean
   readonly reward: string
 
-  constructor(title: string, condition: string, id:string, reward: string, completed: boolean) {
+  constructor(title: string, condition: string, id: string, reward: string, completed: boolean) {
     this.title = title
     this.condition = condition
     this.id = id
@@ -257,7 +257,7 @@ class Contact {
   // maybe story?
   //readonly story: string
 
-  public constructor(name: string, id: string, card: string, type: string){
+  public constructor(name: string, id: string, card: string, type: string) {
     this.name = name
     this.id = id
     this.card = card
@@ -280,11 +280,11 @@ class Contact {
   }
 }
 
-function randomId(length: number){
-  return Math.random().toString(36).substring(2, length+2);
+function randomId(length: number) {
+  return Math.random().toString(36).substring(2, length + 2);
 }
 
-function getIdFromObjects(objects: any[]){
+function getIdFromObjects(objects: any[]) {
   let ids: string[] = []
   objects.forEach((element: any) => {
     ids.push(element.id)
@@ -292,16 +292,16 @@ function getIdFromObjects(objects: any[]){
   return ids
 }
 
-export function generateId(array: any[]){
+export function generateId(array: any[]) {
   let ids = getIdFromObjects(array)
   const limit: number = 100
   let attempts = 0
   let id = false
   let returnId = ''
-  while(!id && attempts < limit){
+  while (!id && attempts < limit) {
     returnId = randomId(10)
     id = true
-    if(!checkId(returnId, ids)){
+    if (!checkId(returnId, ids)) {
       id = false
       attempts++
     }
@@ -309,7 +309,7 @@ export function generateId(array: any[]){
   return returnId
 }
 
-function checkId(id: string, array: any[]){
+function checkId(id: string, array: any[]) {
   let match = array.find((item) => {
     return item === id
   })
