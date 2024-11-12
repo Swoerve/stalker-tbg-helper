@@ -58,33 +58,18 @@ import Equipment from "./Equipment.vue"
 import Achievements from "./Achievements.vue"
 import type { SubmitEventPromise } from 'vuetify'
 
-
-// const props = defineProps({
-//   campaign: {
-//     type: game.Campaign,
-//     required: true
-//   },
-//   isActive: Boolean
-// })
-// const { campaign, isActive } = toRefs(props)
-
 const campaign = defineModel('campaign', { type: game.Campaign, required: true })
 const isActive = defineModel('isActive', { type: Boolean, required: true })
 
-//const campaign = toRef(props.campaign)
-//const isActive = toRef(props.isActive)
 let selectedStalker: any = ref(campaign.value.stalkers[0])
-console.log(selectedStalker.value)
+// console.log(selectedStalker.value)
 
 let loading = ref(false)
 async function submit(event: SubmitEventPromise) {
   loading.value = true
 
   const results = await event
-
-
-
-  console.log(JSON.stringify(results, null, 2))
+  // console.log(JSON.stringify(results, null, 2))
   if (results.valid) {
     createStalker()
     overlay.value = false
@@ -107,7 +92,7 @@ let nameRule = [(value: string) => {
 
 
 function createStalker() {
-  console.log('creating stalker...')
+  // console.log('creating stalker...')
   if (playerName.value && stalkerName.value) {
     campaign.value.newStalker(stalkerName.value, playerName.value, game.generateId(campaign.value.stalkers))
   }
@@ -117,15 +102,15 @@ function createStalker() {
 }
 
 function deleteStalker(id: string) {
-  console.log('deleting stalker...')
+  // console.log('deleting stalker...')
   let toDeleteStalker = campaign.value.stalkers.findIndex((value, index, array) => {
     return value.id === id
   })
-  console.log(toDeleteStalker)
+  // console.log(toDeleteStalker)
   campaign.value.stalkers.splice(toDeleteStalker, 1)
   if (campaign.value.stalkers.length > 0 && toDeleteStalker === 0) {
     selectedStalker.value = campaign.value.stalkers[0]
-    console.log(selectedStalker)
+    // console.log(selectedStalker)
   } else if (campaign.value.stalkers.length > 0) {
     selectedStalker.value = campaign.value.stalkers[toDeleteStalker - 1]
   } else {
