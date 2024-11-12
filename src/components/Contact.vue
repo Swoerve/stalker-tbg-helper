@@ -88,7 +88,7 @@ async function submit(event: SubmitEventPromise) {
 
   const results = await event
 
-  console.log(JSON.stringify(results, null, 2))
+  // console.log(JSON.stringify(results, null, 2))
   if (results.valid) {
     createContact()
     overlay.value = false
@@ -96,7 +96,7 @@ async function submit(event: SubmitEventPromise) {
   loading.value = false
 }
 function createContact() {
-  console.log('creating contact...')
+  // console.log('creating contact...')
   if (contactName.value && contactCard.value && contactType.value) {
     campaign.value.newContact(contactName.value, game.generateId(campaign.value.contacts), contactCard.value, contactType.value)
   }
@@ -106,11 +106,11 @@ function createContact() {
 }
 
 function deleteContact(id: string) {
-  console.log('deleting contact...')
+  // console.log('deleting contact...')
   let toDeleteContact = campaign.value.contacts.findIndex((value, index, array) => {
     return value.id === id
   })
-  console.log(toDeleteContact)
+  // console.log(toDeleteContact)
   campaign.value.contacts.splice(toDeleteContact, 1)
 }
 </script>
