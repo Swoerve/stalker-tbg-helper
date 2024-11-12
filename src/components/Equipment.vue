@@ -60,14 +60,6 @@ import * as game from '../campaign'
 import type { Ref } from 'vue'
 import type { SubmitEventPromise } from 'vuetify'
 
-// const props = defineProps({
-//     stalker: {
-//         type: game.Stalker,
-//         required: true
-//     }
-// })
-// const {stalker} = toRefs(props)
-
 const stalker = defineModel('stalker', { type: game.Stalker, required: true })
 
 let equipmentName = ref('')
@@ -88,7 +80,7 @@ async function submit(event: SubmitEventPromise) {
 
 
 
-  console.log(JSON.stringify(results, null, 2))
+  // console.log(JSON.stringify(results, null, 2))
   if (results.valid) {
     createItem()
     overlay.value = false
@@ -99,18 +91,18 @@ async function submit(event: SubmitEventPromise) {
 
 function createItem() {
 
-  console.log('creating Equipment...')
+  // console.log('creating Equipment...')
   stalker.value.addEquipment(equipmentName.value, equipmentType.value, game.generateId(stalker.value.equipment), equipmentPersonal.value, equipmentStalker.value)
-  console.log(stalker.value.equipment[0])
+  // console.log(stalker.value.equipment[0])
 
 }
 
 function removeItem(id: string) {
-  console.log('deleting stalker...')
+  // console.log('deleting stalker...')
   let toDeleteStalker = stalker.value.equipment.findIndex((value, index, array) => {
     return value.id === id
   })
-  console.log(toDeleteStalker)
+  // console.log(toDeleteStalker)
   stalker.value.equipment.splice(toDeleteStalker, 1)
 }
 
